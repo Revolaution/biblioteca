@@ -1,17 +1,25 @@
 package com.thoughtworks.biblioteca;
 
 import java.io.PrintStream;
+import java.util.List;
 
 public class Biblioteca {
 
-    private PrintStream print;
+    private PrintStream printStream;
+    private List<Book> listOfBooks;
 
-    public Biblioteca(PrintStream print) {
-        this.print = print;
+    public Biblioteca(PrintStream printStream, List<Book> listOfBooks) {
+        this.printStream = printStream;
+        this.listOfBooks = listOfBooks;
     }
 
-
     public void greetCustomer() {
-        print.println("Welcome");
+        printStream.println("Welcome");
+    }
+
+    public void listBooks() {
+        for (Book book: listOfBooks){
+            book.printInformation(printStream);
+        }
     }
 }
