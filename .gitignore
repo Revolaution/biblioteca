@@ -1,3 +1,5 @@
-.idea/
-biblioteca.iml
-build/
+*.idea/
+*.iml
+build/*
+*.
+*..

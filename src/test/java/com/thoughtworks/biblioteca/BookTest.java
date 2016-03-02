@@ -24,12 +24,6 @@ public class BookTest {
 
 
     @Test
-    public void shouldPrintFormatted() {
-        book.print();
-        verify(printStream).println(contains("Harry Potter | JK Rowling | 1991")) ;
-    }
-
-    @Test
     public void shouldPrintTitle() {
         book.print();
         verify(printStream).println(contains("Harry Potter")) ;

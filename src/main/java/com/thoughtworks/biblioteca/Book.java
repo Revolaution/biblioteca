@@ -18,6 +18,6 @@ public class Book {
 
 
     public void print() {
-        printStream.println("Bill is cool" + " | " + this.author + " | " + this.yearPublished);
+        printStream.println(this.title + " | " + this.author + " | " + this.yearPublished);
     }
 }
