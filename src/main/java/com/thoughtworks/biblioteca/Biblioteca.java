@@ -19,7 +19,7 @@ public class Biblioteca {
 
     public void listBooks() {
         for (Book book: listOfBooks){
-            book.printInformation(printStream);
+            book.print();
         }
     }
 }

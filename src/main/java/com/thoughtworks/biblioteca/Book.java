@@ -4,19 +4,20 @@ import java.io.PrintStream;
 
 public class Book {
 
+    private PrintStream printStream;
     private String title;
     private String author;
     private int yearPublished;
 
-    public Book(String title, String author, int yearPublished) {
+    public Book(PrintStream printStream, String title, String author, int yearPublished) {
+        this.printStream = printStream;
         this.title = title;
         this.author = author;
         this.yearPublished = yearPublished;
     }
 
-    public void printInformation(PrintStream printStream) {
-        //return title + " | " + author + " | " + yearPublished;
-        printStream.printf("%-30.30s  %-30.30s %-30.30s%n", title, author, yearPublished) ;
 
+    public void print() {
+        printStream.println("Bill is cool" + " | " + this.author + " | " + this.yearPublished);
     }
 }
