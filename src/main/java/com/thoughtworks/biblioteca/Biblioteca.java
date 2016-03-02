@@ -44,7 +44,9 @@ public class Biblioteca {
             case 1:
                 listBooks() ;
                 break ;
-
+            default:
+                printStream.println("Select a valid option!");
+                break;
         }
     }
 }

@@ -68,4 +68,12 @@ public class BibliotecaTest {
         verify(book).print() ;
     }
 
+    @Test
+    public void shouldGiveErrorMessageWhenUserEntersInvalidInput(){
+        when(scanner.nextInt()).thenReturn(2);
+        biblioteca.getUserInput();
+
+        verify(printStream).println("Select a valid option!");
+    }
+
 }
