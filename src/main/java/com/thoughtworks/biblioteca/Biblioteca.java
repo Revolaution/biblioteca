@@ -20,6 +20,7 @@ public class Biblioteca {
     public void run() {
         greetCustomer() ;
         showmenu() ;
+        handleUserInput();
     }
 
     public void greetCustomer() {
@@ -36,14 +37,23 @@ public class Biblioteca {
 
     private void showmenu() {
         printStream.println("1. List Books") ;
+        printStream.println("2. Quit");
     }
 
-    public void getUserInput() {
+    public void handleUserInput() {
         int input = scanner.nextInt() ;
-        switch (input) {
+
+        response(input);
+    }
+
+    public void response(int userInput) {
+        switch (userInput) {
             case 1:
                 listBooks() ;
                 break ;
+            case 2:
+                printStream.println("Thank you for using the Biblioteca..?");
+                break;
             default:
                 printStream.println("Select a valid option!");
                 break;

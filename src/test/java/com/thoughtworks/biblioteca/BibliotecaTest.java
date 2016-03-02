@@ -63,17 +63,25 @@ public class BibliotecaTest {
     @Test
     public void shouldListBooksWhenUserEnters1AfterMenuDisplayed() {
         when(scanner.nextInt()).thenReturn(1) ;
-        biblioteca.getUserInput() ;
+        biblioteca.handleUserInput() ;
 
         verify(book).print() ;
     }
 
     @Test
     public void shouldGiveErrorMessageWhenUserEntersInvalidInput(){
-        when(scanner.nextInt()).thenReturn(2);
-        biblioteca.getUserInput();
+        when(scanner.nextInt()).thenReturn(10000);
+        biblioteca.handleUserInput();
 
         verify(printStream).println("Select a valid option!");
+    }
+
+    @Test
+    public void shouldExitBibliotecaWhenUserEntersQuit(){
+        when(scanner.nextInt()).thenReturn(2);
+        biblioteca.handleUserInput();
+
+        verify(printStream).println("Thank you for using the Biblioteca..?");
     }
 
 }
