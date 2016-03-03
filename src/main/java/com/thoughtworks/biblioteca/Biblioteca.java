@@ -2,7 +2,6 @@ package com.thoughtworks.biblioteca;
 
 import java.io.PrintStream;
 import java.util.List;
-import java.util.Scanner;
 
 public class Biblioteca {
 
@@ -17,13 +16,8 @@ public class Biblioteca {
         this.scanner = scanner ;
     }
 
-    public void run() {
-        greetCustomer() ;
-        showmenu() ;
-        handleUserInput();
-    }
-
     public void greetCustomer() {
+
         printStream.println("Welcome");
     }
 
@@ -35,28 +29,4 @@ public class Biblioteca {
 
 
 
-    private void showmenu() {
-        printStream.println("1. List Books") ;
-        printStream.println("2. Quit");
-    }
-
-    public void handleUserInput() {
-        int input = scanner.nextInt() ;
-
-        response(input);
-    }
-
-    public void response(int userInput) {
-        switch (userInput) {
-            case 1:
-                listBooks() ;
-                break ;
-            case 2:
-                printStream.println("Thank you for using the Biblioteca..?");
-                break;
-            default:
-                printStream.println("Select a valid option!");
-                break;
-        }
-    }
 }
