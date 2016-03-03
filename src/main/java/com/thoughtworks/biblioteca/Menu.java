@@ -2,6 +2,8 @@ package com.thoughtworks.biblioteca;
 
 
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Menu {
 
@@ -19,11 +21,15 @@ public class Menu {
     public void handleOptions() {
         printStream.println("1. List Books");
         printStream.println("2. Quit");
+
         int input = scanner.nextInt() ;
+        Map<Integer,Command> options = new HashMap<>();
+        options.get(input).execute();
 
         switch (input) {
             case 1:
                 biblioteca.listBooks() ;
+                //options.add(ListBooks(Biblioteca biblioteca)
                 break ;
             case 2:
                 printStream.println("Thank you for using the Biblioteca..?");
@@ -35,9 +41,4 @@ public class Menu {
     }
 
 
-    public void display() {
-    }
-
-    public void getUserInput() {
-    }
 }
