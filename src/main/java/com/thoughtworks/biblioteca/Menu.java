@@ -24,20 +24,22 @@ public class Menu {
 
         int input = scanner.nextInt() ;
         Map<Integer,Command> options = new HashMap<>();
+        options.put(1, new ListBooks(biblioteca));
+        options.put(2,new Quit(printStream));
         options.get(input).execute();
 
-        switch (input) {
-            case 1:
-                biblioteca.listBooks() ;
-                //options.add(ListBooks(Biblioteca biblioteca)
-                break ;
-            case 2:
-                printStream.println("Thank you for using the Biblioteca..?");
-                break;
-            default:
-                printStream.println("Select a valid option!");
-                break;
-        }
+//        switch (input) {
+//            case 1:
+//                biblioteca.listBooks() ;
+//                //options.add(ListBooks(Biblioteca biblioteca)
+//                break ;
+//            case 2:
+//                printStream.println("Thank you for using the Biblioteca..?");
+//                break;
+//            default:
+//                printStream.println("Select a valid option!");
+//                break;
+//        }
     }
 
 

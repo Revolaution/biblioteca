@@ -27,6 +27,7 @@ public class MenuTest {
 
     @Test
     public void shouldDisplayMenuAfterStart(){
+        when(scanner.nextInt()).thenReturn(1) ;
         menu.handleOptions();
         verify(printStream).println(contains("1. List Books"));
         verify(printStream).println(contains("2. Quit"));
