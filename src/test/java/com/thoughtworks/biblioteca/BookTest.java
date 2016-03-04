@@ -40,5 +40,11 @@ public class BookTest {
         verify(printStream).println(contains("1991")) ;
     }
 
+//    @Test
+//    public void shouldChangeCheckedOut(){
+//        book.checkOut();
+//
+//    }
+
 
 }

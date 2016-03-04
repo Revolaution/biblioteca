@@ -2,9 +2,9 @@ package com.thoughtworks.biblioteca;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InOrder;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +16,9 @@ public class BibliotecaTest {
     private Biblioteca biblioteca;
     private PrintStream printStream;
     private Book book;
-    private BufferedReader bufferedReader;
     private List<Book> listOfBooks;
     private Menu menu;
+    private BufferedReader bufferedReader;
 
     @Before
     public void setUp(){
@@ -26,9 +26,10 @@ public class BibliotecaTest {
         listOfBooks = new ArrayList<Book>();
         book = mock(Book.class);
         listOfBooks.add(book) ;
-        bufferedReader = mock(BufferedReader.class);
         menu = mock(Menu.class);
-        biblioteca = new Biblioteca(printStream, listOfBooks, bufferedReader);
+        bufferedReader = mock(BufferedReader.class);
+        biblioteca = new Biblioteca(printStream, listOfBooks,bufferedReader );
+        listOfBooks.add(book);
     }
 
     @Test
@@ -37,18 +38,23 @@ public class BibliotecaTest {
         verify(printStream).println("Welcome");
     }
 
-
-
     @Test
     public void shouldListTwoBooks(){
         Book book2 = mock(Book.class) ;
-        listOfBooks.add(book);
         listOfBooks.add(book2);
         biblioteca.listBooks();
         verify(book2).print();
     }
 
+    @Test
+    public void shouldAskCustomerForBookToCheckOut() throws IOException {
+        biblioteca.checkOutBook();
+        verify(printStream).println(contains("check out"));
+    }
 
-
+    @Test
+    public void shouldRemoveABookWhenGivenTheTitle() throws IOException {
+        biblioteca.checkOutBook();
+        verify(book).checkOut();
 
 }
