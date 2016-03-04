@@ -43,7 +43,7 @@ public class MenuTest {
 
     @Test
     public void shouldGiveErrorMessageWhenUserEntersInvalidInput(){
-        when(scanner.nextInt()).thenReturn(10000);
+        when(scanner.nextInt()).thenReturn(10000).thenReturn(1);
         menu.handleOptions();
 
         verify(printStream).println("Select a valid option!");

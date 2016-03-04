@@ -22,11 +22,18 @@ public class Menu {
         printStream.println("1. List Books");
         printStream.println("2. Quit");
 
-        int input = scanner.nextInt() ;
         Map<Integer,Command> options = new HashMap<>();
         options.put(1, new ListBooks(biblioteca));
         options.put(2,new Quit(printStream));
-        options.get(input).execute();
+
+        int input = scanner.nextInt();
+        if (input < 3){
+            options.get(input).execute();
+        }
+        else {
+            printStream.println("Select a valid option!");
+            handleOptions();
+        }
 
 //        switch (input) {
 //            case 1:
