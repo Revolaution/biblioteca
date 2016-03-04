@@ -3,6 +3,8 @@ package com.thoughtworks.biblioteca;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.mockito.Matchers.contains;
@@ -17,6 +19,7 @@ public class MenuTest {
     private Menu menu;
     private Biblioteca biblioteca;
     private QuitCommand quitCommand;
+    private BufferedReader bufferedReader;
 
     @Before
     public void setup(){
@@ -24,20 +27,21 @@ public class MenuTest {
         scanner = mock(UserScanner.class) ;
         biblioteca = mock(Biblioteca.class);
         quitCommand = mock(QuitCommand.class);
-        menu = new Menu(printStream,scanner, biblioteca, quitCommand);
+        bufferedReader = mock(BufferedReader.class);
+        menu = new Menu(printStream, bufferedReader, biblioteca, quitCommand);
     }
 
     @Test
-    public void shouldDisplayMenuAfterStart(){
-        when(scanner.nextInt()).thenReturn(1) ;
+    public void shouldDisplayMenuAfterStart() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("1") ;
         menu.showMenu();
         verify(printStream).println(contains("1. List Books"));
         verify(printStream).println(contains("2. Quit"));
     }
 
     @Test
-    public void shouldListBooksWhenUserEnters1AfterMenuDisplayed() {
-        when(scanner.nextInt()).thenReturn(1) ;
+    public void shouldListBooksWhenUserEnters1AfterMenuDisplayed() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("1") ;
         when(quitCommand.getShouldRun()).thenReturn(true).thenReturn(false);
         menu.handleOptions();
 
@@ -45,8 +49,8 @@ public class MenuTest {
     }
 
     @Test
-    public void shouldGiveErrorMessageWhenUserEntersInvalidInput(){
-        when(scanner.nextInt()).thenReturn(10000).thenReturn(1);
+    public void shouldGiveErrorMessageWhenUserEntersInvalidInput() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("10000").thenReturn("1");
         when(quitCommand.getShouldRun()).thenReturn(true).thenReturn(false);
         menu.handleOptions();
 
@@ -54,8 +58,8 @@ public class MenuTest {
     }
 
     @Test
-    public void shouldExitBibliotecaWhenUserEntersQuit(){
-        when(scanner.nextInt()).thenReturn(2);
+    public void shouldExitBibliotecaWhenUserEntersQuit() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("2");
         when(quitCommand.getShouldRun()).thenReturn(true).thenReturn(false);
         menu.handleOptions();
 
