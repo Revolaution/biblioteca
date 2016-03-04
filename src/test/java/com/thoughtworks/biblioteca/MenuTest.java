@@ -16,19 +16,21 @@ public class MenuTest {
     private UserScanner scanner;
     private Menu menu;
     private Biblioteca biblioteca;
+    private QuitCommand quitCommand;
 
     @Before
     public void setup(){
         printStream = mock(PrintStream.class);
         scanner = mock(UserScanner.class) ;
         biblioteca = mock(Biblioteca.class);
-        menu = new Menu(printStream,scanner, biblioteca);
+        quitCommand = mock(QuitCommand.class);
+        menu = new Menu(printStream,scanner, biblioteca, quitCommand);
     }
 
     @Test
     public void shouldDisplayMenuAfterStart(){
         when(scanner.nextInt()).thenReturn(1) ;
-        menu.handleOptions();
+        menu.showMenu();
         verify(printStream).println(contains("1. List Books"));
         verify(printStream).println(contains("2. Quit"));
     }
@@ -56,5 +58,6 @@ public class MenuTest {
 
         verify(printStream).println("Thank you for using the Biblioteca..?");
     }
+
 
 }

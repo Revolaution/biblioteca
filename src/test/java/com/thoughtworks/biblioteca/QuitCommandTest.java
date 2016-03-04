@@ -10,7 +10,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 
-public class QuitTest {
+public class QuitCommandTest {
 
 
     private PrintStream printStream;
@@ -23,9 +23,10 @@ public class QuitTest {
 
     @Test
     public void shouldPrintQuitMessageWhenExecuting(){
-        Quit quit = new Quit(printStream);
 
-        quit.execute();
+        QuitCommand quitCommand = new QuitCommand(printStream);
+
+        quitCommand.execute();
 
         verify(printStream).println(contains("Thank you for using the Biblioteca..?"));
     }
