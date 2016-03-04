@@ -38,6 +38,7 @@ public class MenuTest {
     @Test
     public void shouldListBooksWhenUserEnters1AfterMenuDisplayed() {
         when(scanner.nextInt()).thenReturn(1) ;
+        when(quitCommand.getShouldRun()).thenReturn(true).thenReturn(false);
         menu.handleOptions();
 
         verify(biblioteca).listBooks();
@@ -46,6 +47,7 @@ public class MenuTest {
     @Test
     public void shouldGiveErrorMessageWhenUserEntersInvalidInput(){
         when(scanner.nextInt()).thenReturn(10000).thenReturn(1);
+        when(quitCommand.getShouldRun()).thenReturn(true).thenReturn(false);
         menu.handleOptions();
 
         verify(printStream).println("Select a valid option!");
@@ -54,9 +56,10 @@ public class MenuTest {
     @Test
     public void shouldExitBibliotecaWhenUserEntersQuit(){
         when(scanner.nextInt()).thenReturn(2);
+        when(quitCommand.getShouldRun()).thenReturn(true).thenReturn(false);
         menu.handleOptions();
 
-        verify(printStream).println("Thank you for using the Biblioteca..?");
+        verify(quitCommand).execute();
     }
 
 

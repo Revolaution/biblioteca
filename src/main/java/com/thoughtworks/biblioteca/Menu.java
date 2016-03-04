@@ -33,28 +33,14 @@ public class Menu {
         showMenu();
         while (quitCommand.getShouldRun()){
             int input = scanner.nextInt();
-            if (input < 3){
+            if (options.containsKey(input)){
                 options.get(input).execute();
             }
             else {
                 printStream.println("Select a valid option!");
             }
-//            handleOptions();
         }
 
-
-//        switch (input) {
-//            case 1:
-//                biblioteca.listBooks() ;
-//                //options.add(ListBooks(Biblioteca biblioteca)
-//                break ;
-//            case 2:
-//                printStream.println("Thank you for using the Biblioteca..?");
-//                break;
-//            default:
-//                printStream.println("Select a valid option!");
-//                break;
-//        }
     }
 
 
