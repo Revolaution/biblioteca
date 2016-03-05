@@ -27,13 +27,14 @@ public class Menu {
 
     private void addOptionCommands(){
         options.put("1", new ListBooks(biblioteca));
-        options.put("2", quitCommand);
+        options.put("2", new CheckOutClass(biblioteca));
+        options.put("Q", quitCommand);
     }
 
     public void handleOptions() throws IOException {
 
-        showMenu();
         while (quitCommand.getShouldRun()){
+            showMenu();
             String input = bufferedReader.readLine();
             if (options.containsKey(input)){
                 options.get(input).execute();
@@ -47,6 +48,7 @@ public class Menu {
     
     public void showMenu() {
         printStream.println("1. List Books");
-        printStream.println("2. Quit");
+        printStream.println("2. Check Out A Book");
+        printStream.println("Q. Quit");
     }
 }

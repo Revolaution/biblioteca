@@ -53,8 +53,15 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void shouldRemoveABookWhenGivenTheTitle() throws IOException {
+    public void shouldCheckOutABookWhenGivenTheTitle() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("Harry Potter");
         biblioteca.checkOutBook();
-        verify(book).checkOut();
+        verify(book, times(2)).checkOut("Harry Potter");
+    }
 
+    @Test
+    public void shouldOnlyPrintBooksWhenTheyAreNotCheckedOut(){
+        biblioteca.listBooks();
+        verify(book, times(2)).ableToBeCheckedOut();
+    }
 }

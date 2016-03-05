@@ -24,13 +24,17 @@ public class Biblioteca {
 
     public void listBooks() {
         for (Book book: listOfBooks){
-            book.print();
+            if (book.ableToBeCheckedOut()){
+                book.print();
+            }
         }
     }
 
-
     public void checkOutBook() throws IOException {
         printStream.println("Which book title would you like to check out?");
-        listOfBooks.
+        String input = bufferedReader.readLine();
+        for(Book book: listOfBooks){
+            book.checkOut(input);
+        }
     }
 }

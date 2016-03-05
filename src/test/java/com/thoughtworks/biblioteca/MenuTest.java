@@ -36,7 +36,7 @@ public class MenuTest {
         when(bufferedReader.readLine()).thenReturn("1") ;
         menu.showMenu();
         verify(printStream).println(contains("1. List Books"));
-        verify(printStream).println(contains("2. Quit"));
+        verify(printStream).println(contains("Q. Quit"));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class MenuTest {
 
     @Test
     public void shouldExitBibliotecaWhenUserEntersQuit() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("2");
+        when(bufferedReader.readLine()).thenReturn("Q");
         when(quitCommand.getShouldRun()).thenReturn(true).thenReturn(false);
         menu.handleOptions();
 

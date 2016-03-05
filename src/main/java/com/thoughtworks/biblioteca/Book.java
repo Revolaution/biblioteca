@@ -23,7 +23,14 @@ public class Book {
         printStream.println(this.title + " | " + this.author + " | " + this.yearPublished);
     }
 
-    public void checkOut() {
-        checkedOut = true;
+    public void checkOut(String titleToCheckOut) {
+        if (titleToCheckOut.equals(title)){
+            checkedOut = true;
+            printStream.println("Thank you! Enjoy the book");
+        }
+    }
+
+    public boolean ableToBeCheckedOut() {
+        return checkedOut == false;
     }
 }

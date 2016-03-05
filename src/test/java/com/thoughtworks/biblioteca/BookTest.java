@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import java.io.PrintStream;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Matchers.contains;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -40,11 +42,22 @@ public class BookTest {
         verify(printStream).println(contains("1991")) ;
     }
 
-//    @Test
-//    public void shouldChangeCheckedOut(){
-//        book.checkOut();
-//
-//    }
+    @Test
+    public void shouldChangeCheckedOutStatus(){
+        book.checkOut("Harry Potter");
+        assertThat(book.checkedOut, is(true));
+    }
 
+    @Test
+    public void shouldTellUserBookHasBeenCheckedOutWhenCheckedOut(){
+        book.checkOut("Harry Potter");
+        verify(printStream).println(contains("Enjoy the book"));
+    }
+
+    @Test
+    public void shouldReturnBooleanIfBookIsAbleToBeCheckedOut(){
+        book.ableToBeCheckedOut();
+        assertThat(book.ableToBeCheckedOut(), is(true));
+    }
 
 }
