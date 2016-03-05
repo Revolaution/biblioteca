@@ -28,7 +28,7 @@ public class QuitCommandTest {
 
         quitCommand.execute();
 
-        verify(printStream).println(contains("Thank you for using the Biblioteca..?"));
+        verify(printStream).println(contains("Thank you for using the Biblioteca"));
     }
 
 

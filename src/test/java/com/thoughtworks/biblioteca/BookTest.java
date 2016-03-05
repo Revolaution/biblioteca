@@ -60,4 +60,9 @@ public class BookTest {
         assertThat(book.ableToBeCheckedOut(), is(true));
     }
 
+//    @Test
+//    public void shouldTellUserOfUnsuccessfulCheckOutWhenBookNotAvailable(){
+//        book.checkOut("Harry Potter");
+//        verify(printStream).println("That book is not available");
+//    }
 }

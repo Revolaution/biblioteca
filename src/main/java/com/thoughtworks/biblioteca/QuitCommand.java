@@ -14,7 +14,7 @@ public class QuitCommand implements Command {
 
     @Override
     public void execute() {
-        printStream.println("Thank you for using the Biblioteca..?");
+        printStream.println("Thank you for using the Biblioteca");
         shouldRun = false;
     }
 
