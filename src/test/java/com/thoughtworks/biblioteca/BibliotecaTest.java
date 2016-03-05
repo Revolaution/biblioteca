@@ -42,6 +42,7 @@ public class BibliotecaTest {
     public void shouldListTwoBooks(){
         Book book2 = mock(Book.class) ;
         listOfBooks.add(book2);
+        when(book2.ableToBeCheckedOut()).thenReturn(true);
         biblioteca.listBooks();
         verify(book2).print();
     }
