@@ -3,18 +3,18 @@ package com.thoughtworks.biblioteca;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.List;
+import java.util.Map;
 
 public class Biblioteca {
 
     private PrintStream printStream;
-    private List<Book> listOfBooks;
+    private Map<String, Book> bookMap;
     private BufferedReader bufferedReader;
 
 
-    public Biblioteca(PrintStream printStream, List<Book> listOfBooks, BufferedReader bufferedReader) {
+    public Biblioteca(PrintStream printStream, Map<String, Book> bookMap, BufferedReader bufferedReader) {
         this.printStream = printStream;
-        this.listOfBooks = listOfBooks;
+        this.bookMap = bookMap;
         this.bufferedReader = bufferedReader;
     }
 
@@ -23,18 +23,32 @@ public class Biblioteca {
     }
 
     public void listBooks() {
-        for (Book book: listOfBooks){
-            if (book.ableToBeCheckedOut()){
-                book.print();
+        for (Map.Entry<String, Book> entry : bookMap.entrySet()){
+            if (entry.getValue().ableToBeCheckedOut()){
+                entry.getValue().print();
             }
         }
     }
 
     public void checkOutBook() throws IOException {
-        printStream.println("Which book title would you like to check out?");
+        printStream.println("Which book's isbn would you like to check out?");
         String input = bufferedReader.readLine();
-        for(Book book: listOfBooks){
-            book.checkOut(input);
+        if (bookMap.containsKey(input)){
+            bookMap.get(input).checkOut();
+        }
+        else {
+            printStream.println("That book is not available");
+        }
+    }
+
+    public void returnBook() throws IOException {
+        printStream.println("Enter the ISBN of the book you want to return");
+        String input = bufferedReader.readLine();
+        if (bookMap.containsKey(input)){
+            bookMap.get(input).checkIn();
+        }
+        else {
+            printStream.println("That is not a valid book to return.");
         }
     }
 }

@@ -21,7 +21,7 @@ public class BookTest {
     @Before
     public void setUp() throws Exception {
         printStream = mock(PrintStream.class) ;
-        book = new Book(printStream, "Harry Potter","JK Rowling",1991);
+        book = new Book(printStream, "Harry Potter","JK Rowling",1991, "001");
     }
 
 
@@ -43,14 +43,19 @@ public class BookTest {
     }
 
     @Test
+    public void shouldPrintISBN(){
+        book.print();
+        verify(printStream).println(contains("001"));
+    }
+    @Test
     public void shouldChangeCheckedOutStatus(){
-        book.checkOut("Harry Potter");
+        book.checkOut();
         assertThat(book.checkedOut, is(true));
     }
 
     @Test
     public void shouldTellUserBookHasBeenCheckedOutWhenCheckedOut(){
-        book.checkOut("Harry Potter");
+        book.checkOut();
         verify(printStream).println(contains("Enjoy the book"));
     }
 
@@ -60,9 +65,10 @@ public class BookTest {
         assertThat(book.ableToBeCheckedOut(), is(true));
     }
 
-//    @Test
-//    public void shouldTellUserOfUnsuccessfulCheckOutWhenBookNotAvailable(){
-//        book.checkOut("Harry Potter");
-//        verify(printStream).println("That book is not available");
-//    }
+    @Test
+    public void shouldTellUserIfBookHasBeenCheckedIn(){
+        book.checkIn();
+        verify(printStream).println(contains("returning the book"));
+    }
+
 }

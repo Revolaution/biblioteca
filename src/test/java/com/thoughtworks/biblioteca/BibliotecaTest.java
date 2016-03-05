@@ -6,8 +6,8 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.mockito.Mockito.*;
 
@@ -16,20 +16,17 @@ public class BibliotecaTest {
     private Biblioteca biblioteca;
     private PrintStream printStream;
     private Book book;
-    private List<Book> listOfBooks;
-    private Menu menu;
     private BufferedReader bufferedReader;
+    private Map<String, Book> bookMap;
 
     @Before
     public void setUp(){
         printStream = mock(PrintStream.class);
-        listOfBooks = new ArrayList<Book>();
+        bookMap = new HashMap<String,Book>();
         book = mock(Book.class);
-        listOfBooks.add(book) ;
-        menu = mock(Menu.class);
+        bookMap.put("001",book);
         bufferedReader = mock(BufferedReader.class);
-        biblioteca = new Biblioteca(printStream, listOfBooks,bufferedReader );
-        listOfBooks.add(book);
+        biblioteca = new Biblioteca(printStream, bookMap,bufferedReader );
     }
 
     @Test
@@ -41,7 +38,7 @@ public class BibliotecaTest {
     @Test
     public void shouldListTwoBooks(){
         Book book2 = mock(Book.class) ;
-        listOfBooks.add(book2);
+        bookMap.put("2",book2);
         when(book2.ableToBeCheckedOut()).thenReturn(true);
         biblioteca.listBooks();
         verify(book2).print();
@@ -54,16 +51,36 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void shouldCheckOutABookWhenGivenTheTitle() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("Harry Potter");
+    public void shouldCheckOutABookWhenGivenTheISBN() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("001");
         biblioteca.checkOutBook();
-        verify(book, times(2)).checkOut("Harry Potter");
+        verify(book).checkOut();
     }
 
     @Test
     public void shouldOnlyPrintBooksWhenTheyAreNotCheckedOut(){
         biblioteca.listBooks();
-        verify(book, times(2)).ableToBeCheckedOut();
+        verify(book).ableToBeCheckedOut();
     }
 
+    @Test
+    public void shouldTellUserOfUnsuccessfulCheckOutWhenBookNotAvailable() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("5");
+        biblioteca.checkOutBook();
+        verify(printStream).println("That book is not available");
+    }
+
+    @Test
+    public void shouldAllowUserToReturnBookWhenGivenISBN() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("001");
+        biblioteca.returnBook();
+        verify(book).checkIn();
+    }
+
+    @Test
+    public void shouldTellUserIfCannotReturnBook() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("100");
+        biblioteca.returnBook();
+        verify(printStream).println(contains("not a valid book"));
+    }
 }

@@ -28,6 +28,7 @@ public class Menu {
     private void addOptionCommands(){
         options.put("1", new ListBooks(biblioteca));
         options.put("2", new CheckOutClass(biblioteca));
+        options.put("3", new ReturnBookClass(biblioteca));
         options.put("Q", quitCommand);
     }
 
@@ -49,6 +50,7 @@ public class Menu {
     public void showMenu() {
         printStream.println("1. List Books");
         printStream.println("2. Check Out A Book");
+        printStream.println("3. Return A Book");
         printStream.println("Q. Quit");
     }
 }
