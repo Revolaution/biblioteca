@@ -31,7 +31,7 @@ public class Biblioteca {
     }
 
     public void checkOutBook() throws IOException {
-        printStream.println("Which book's isbn would you like to check out?");
+        printStream.println("Which book's ISBN would you like to check out?");
         String input = bufferedReader.readLine();
         if (bookMap.containsKey(input)){
             bookMap.get(input).checkOut();
