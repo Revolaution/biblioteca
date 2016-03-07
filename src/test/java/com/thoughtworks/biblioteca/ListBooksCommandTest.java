@@ -8,16 +8,16 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 
-public class ListBooksTest {
+public class ListBooksCommandTest {
 
     private Biblioteca biblioteca;
-    private ListBooks listCommand;
+    private ListBooksCommand listCommand;
 
     @Before
     public void setup(){
         biblioteca = mock(Biblioteca.class);
 
-        listCommand = new ListBooks(biblioteca);
+        listCommand = new ListBooksCommand(biblioteca);
     }
 
     @Test

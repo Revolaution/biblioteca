@@ -26,9 +26,9 @@ public class Menu {
     }
 
     private void addOptionCommands(){
-        options.put("1", new ListBooks(biblioteca));
-        options.put("2", new CheckOutClass(biblioteca));
-        options.put("3", new ReturnBookClass(biblioteca));
+        options.put("1", new ListBooksCommand(biblioteca));
+        options.put("2", new BookStatusChangeCommand(biblioteca, new CheckOutCommand(), "Which book's ISBN would you like to check out?", bufferedReader, "That book is not available", printStream));
+        options.put("3", new BookStatusChangeCommand(biblioteca, new ReturnBookCommand(), "Which book's ISBN would you like to check in?", bufferedReader, "That book is not checkout", printStream));
         options.put("Q", quitCommand);
     }
 

@@ -30,25 +30,22 @@ public class Biblioteca {
         }
     }
 
-    public void checkOutBook() throws IOException {
-        printStream.println("Which book's ISBN would you like to check out?");
-        String input = bufferedReader.readLine();
+    public void actOnBook(String input, BookCommand bookCommand, String errorMessage) {
         if (bookMap.containsKey(input)){
-            bookMap.get(input).checkOut();
+            Book book = bookMap.get(input);
+            bookCommand.execute(book);
         }
         else {
-            printStream.println("That book is not available");
+            printStream.println(errorMessage);
         }
     }
 
-    public void returnBook() throws IOException {
-        printStream.println("Enter the ISBN of the book you want to return");
-        String input = bufferedReader.readLine();
-        if (bookMap.containsKey(input)){
-            bookMap.get(input).checkIn();
+    private String readLine()  {
+        try {
+            return bufferedReader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        else {
-            printStream.println("That is not a valid book to return.");
-        }
+        return null;
     }
 }

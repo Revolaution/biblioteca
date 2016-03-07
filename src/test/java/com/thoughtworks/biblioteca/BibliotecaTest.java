@@ -18,15 +18,16 @@ public class BibliotecaTest {
     private Book book;
     private BufferedReader bufferedReader;
     private Map<String, Book> bookMap;
+    private BookCommand bookCommand;
 
     @Before
     public void setUp(){
         printStream = mock(PrintStream.class);
         bookMap = new HashMap<String,Book>();
         book = mock(Book.class);
-        bookMap.put("001",book);
         bufferedReader = mock(BufferedReader.class);
         biblioteca = new Biblioteca(printStream, bookMap,bufferedReader );
+        bookCommand = mock(BookCommand.class);
     }
 
     @Test
@@ -45,42 +46,35 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void shouldAskCustomerForBookToCheckOut() throws IOException {
-        biblioteca.checkOutBook();
-        verify(printStream).println(contains("check out"));
-    }
-
-    @Test
-    public void shouldCheckOutABookWhenGivenTheISBN() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("001");
-        biblioteca.checkOutBook();
-        verify(book).checkOut();
-    }
-
-    @Test
     public void shouldOnlyPrintBooksWhenTheyAreNotCheckedOut(){
+        bookMap.put("001", book);
         biblioteca.listBooks();
         verify(book).ableToBeCheckedOut();
     }
 
     @Test
-    public void shouldTellUserOfUnsuccessfulCheckOutWhenBookNotAvailable() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("5");
-        biblioteca.checkOutBook();
+    public void shouldPrintErrorMessageWhenBookNotAvailable() throws IOException {
+        biblioteca.actOnBook("Some Book", bookCommand, "That book is not available" );
         verify(printStream).println("That book is not available");
     }
 
     @Test
-    public void shouldAllowUserToReturnBookWhenGivenISBN() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("001");
-        biblioteca.returnBook();
-        verify(book).checkIn();
+    public void shouldExecuteBookCommandWhenBookIsInLibrary() throws IOException {
+        bookMap.put("001", book);
+        biblioteca.actOnBook("001", bookCommand, "That is not a valid book to return.");
+        verify(bookCommand).execute(book);
     }
 
     @Test
-    public void shouldTellUserIfCannotReturnBook() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("100");
-        biblioteca.returnBook();
-        verify(printStream).println(contains("not a valid book"));
+    public void shouldNotExecuteBookCommandWhenBookIsNotInLibrary() throws IOException {
+        biblioteca.actOnBook("001", bookCommand, "That is not a valid book to return.");
+        verify(bookCommand, never()).execute(any(Book.class));
+    }
+
+    @Test
+    public void shouldNotPrintErrorMessageWhenBookIsInLibrary() throws IOException {
+        bookMap.put("001", book);
+        biblioteca.actOnBook("001", bookCommand, "That is not a valid book to return.");
+        verify(printStream, never()).println("That book is not available");
     }
 }

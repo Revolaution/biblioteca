@@ -1,11 +1,11 @@
 package com.thoughtworks.biblioteca;
 
 
-public class ListBooks implements Command {
+public class ListBooksCommand implements Command {
 
     private Biblioteca biblioteca;
 
-    public ListBooks(Biblioteca biblioteca) {
+    public ListBooksCommand(Biblioteca biblioteca) {
 
         this.biblioteca = biblioteca;
     }
